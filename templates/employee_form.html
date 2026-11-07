@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} | EmployeeHub{% endblock %}
+{% block content %}
+<div class="page-heading">
+    <p class="eyebrow">EMPLOYEE RECORDS</p>
+    <h1>{{ page_title }}</h1>
+    <p>Enter the employee details below.</p>
+</div>
+<form class="form-card" method="POST">
+    <div class="form-grid">
+        <div class="field">
+            <label for="employee_id">Employee ID *</label>
+            <input id="employee_id" name="employee_id" type="text" required
+                   value="{{ employee.get('employee_id', '') }}"
+                   {% if is_edit %}readonly{% endif %} placeholder="e.g. EMP001">
+        </div>
+        <div class="field">
+            <label for="full_name">Full Name *</label>
+            <input id="full_name" name="full_name" type="text" required
+                   value="{{ employee.get('full_name', '') }}" placeholder="Enter full name">
+        </div>
+        <div class="field">
+            <label for="email">Email Address *</label>
+            <input id="email" name="email" type="email" required
+                   value="{{ employee.get('email', '') }}" placeholder="name@example.com">
+        </div>
+        <div class="field">
+            <label for="phone">Phone Number *</label>
+            <input id="phone" name="phone" type="tel" required
+                   value="{{ employee.get('phone', '') }}" placeholder="+95 9xxxxxxxxx">
+        </div>
+        <div class="field">
+            <label>Gender *</label>
+            <div class="radio-row">
+                {% for gender in genders %}
+                <label class="radio-label"><input type="radio" name="gender" value="{{ gender }}"
+                    {% if employee.get('gender') == gender %}checked{% endif %} required> {{ gender }}</label>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="field">
+            <label for="department">Department *</label>
+            <select id="department" name="department" required>
+                <option value="">Select department</option>
+                {% for department in departments %}
+                <option value="{{ department }}" {% if employee.get('department') == department %}selected{% endif %}>{{ department }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="field">
+            <label for="position">Position *</label>
+            <input id="position" name="position" type="text" required
+                   value="{{ employee.get('position', '') }}" placeholder="e.g. Software Developer">
+        </div>
+        <div class="field">
+            <label for="salary">Salary *</label>
+            <input id="salary" name="salary" type="number" min="0.01" step="0.01" required
+                   value="{{ employee.get('salary', '') }}" placeholder="Enter salary">
+        </div>
+        <div class="field">
+            <label for="joining_date">Date of Joining *</label>
+            <input id="joining_date" name="joining_date" type="date" required
+                   value="{{ employee.get('joining_date', '') }}">
+        </div>
+    </div>
+    <div class="form-actions">
+        <button class="btn primary" type="submit">{{ "Save Changes" if is_edit else "Register Employee" }}</button>
+        <a class="btn secondary" href="{{ url_for('view_employees') }}">Cancel</a>
+    </div>
+    <p class="hint">* Required fields</p>
+</form>
+{% endblock %}

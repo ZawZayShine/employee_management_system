@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Home | EmployeeHub{% endblock %}
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">ADMINISTRATION DASHBOARD</p>
+    <h1>Employee Management System</h1>
+    <p class="lead">Register, view, update and manage employee records in one place.</p>
+    <div class="actions">
+        <a class="btn primary" href="{{ url_for('add_employee') }}">＋ Add Employee</a>
+        <a class="btn secondary" href="{{ url_for('view_employees') }}">View Employees</a>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat-card">
+        <span>Total Employees</span><strong>{{ total }}</strong>
+    </div>
+
+    <div class="stat-card">
+        <span>System</span><strong>Active</strong>
+    </div>
+
+</section>
+{% endblock %}
